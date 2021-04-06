@@ -1,0 +1,585 @@
+NAME: elasticsearch
+LAST DEPLOYED: Sun Mar 14 17:17:08 2021
+NAMESPACE: monitoring
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+USER-SUPPLIED VALUES:
+antiAffinity: hard
+antiAffinityTopologyKey: kubernetes.io/hostname
+clusterHealthCheckParams: wait_for_status=green&timeout=1s
+clusterName: elasticsearch
+dummy: value
+enableServiceLinks: true
+envFrom: []
+esConfig:
+  elasticsearch.yml: |
+    xpack.security.enabled: true
+    xpack.security.transport.ssl.enabled: true
+    xpack.security.transport.ssl.verification_mode: none
+    xpack.security.transport.ssl.key: /usr/share/elasticsearch/config/certs/key.pem
+    xpack.security.transport.ssl.certificate: /usr/share/elasticsearch/config/certs/crt.pem
+    xpack.security.transport.ssl.certificate_authorities: [ "/usr/share/elasticsearch/config/certs/ca.pem" ]
+esJavaOpts: -Xmx1g -Xms1g
+esMajorVersion: ""
+exportLogs: enabled
+extraContainers: []
+extraEnvs:
+- name: ELASTIC_PASSWORD
+  value: RSxx23%^&*@#
+- name: ELASTIC_USERNAME
+  value: elastic
+extraInitContainers: []
+extraVolumeMounts: []
+extraVolumes: []
+fsGroup: ""
+fullnameOverride: ""
+httpPort: 9200
+image: docker.elastic.co/elasticsearch/elasticsearch
+imagePullPolicy: IfNotPresent
+imagePullSecrets: []
+imageTag: 7.8.0
+ingress:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  enabled: true
+  path: /elasticsearch(/|$)(.*)
+  tls: []
+initResources: {}
+keystore: []
+labels: {}
+lifecycle: {}
+masterService: ""
+masterTerminationFix: false
+maxUnavailable: 1
+minimumMasterNodes: 2
+nameOverride: ""
+networkHost: 0.0.0.0
+nodeAffinity: {}
+nodeGroup: master
+nodeSelector: {}
+persistence:
+  annotations: {}
+  enabled: true
+  name: elasticsearch
+  sc: nfs-provisioner
+  size: 10G
+podAnnotations: {}
+podManagementPolicy: Parallel
+podSecurityContext:
+  fsGroup: 1000
+  runAsUser: 1000
+podSecurityPolicy:
+  create: false
+  name: ""
+  spec:
+    fsGroup:
+      rule: RunAsAny
+    privileged: true
+    runAsUser:
+      rule: RunAsAny
+    seLinux:
+      rule: RunAsAny
+    supplementalGroups:
+      rule: RunAsAny
+    volumes:
+    - secret
+    - configMap
+    - persistentVolumeClaim
+priorityClassName: ""
+protocol: http
+rbac:
+  create: false
+  serviceAccountName: ""
+readinessProbe:
+  failureThreshold: 3
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  successThreshold: 3
+  timeoutSeconds: 5
+replicas: 3
+resources:
+  limits:
+    cpu: 1000m
+    memory: 2Gi
+  requests:
+    cpu: 1000m
+    memory: 2Gi
+roles:
+  data: "true"
+  ingest: "true"
+  master: "true"
+schedulerName: ""
+secretMounts: []
+securityContext:
+  capabilities:
+    drop:
+    - ALL
+  runAsNonRoot: true
+  runAsUser: 1000
+service:
+  annotations: {}
+  httpPortName: http
+  labels: {}
+  labelsHeadless: {}
+  loadBalancerIP: ""
+  loadBalancerSourceRanges: []
+  nodePort: ""
+  transportPortName: transport
+  type: ClusterIP
+sidecarResources: {}
+sysctlInitContainer:
+  enabled: true
+sysctlVmMaxMapCount: 262144
+terminationGracePeriod: 120
+tolerations: []
+transportPort: 9300
+updateStrategy: RollingUpdate
+volumeClaimTemplate:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 30Gi
+
+COMPUTED VALUES:
+antiAffinity: hard
+antiAffinityTopologyKey: kubernetes.io/hostname
+clusterHealthCheckParams: wait_for_status=green&timeout=1s
+clusterName: elasticsearch
+dummy: value
+enableServiceLinks: true
+envFrom: []
+esConfig:
+  elasticsearch.yml: |
+    xpack.security.enabled: true
+    xpack.security.transport.ssl.enabled: true
+    xpack.security.transport.ssl.verification_mode: none
+    xpack.security.transport.ssl.key: /usr/share/elasticsearch/config/certs/key.pem
+    xpack.security.transport.ssl.certificate: /usr/share/elasticsearch/config/certs/crt.pem
+    xpack.security.transport.ssl.certificate_authorities: [ "/usr/share/elasticsearch/config/certs/ca.pem" ]
+esJavaOpts: -Xmx1g -Xms1g
+esMajorVersion: ""
+exportLogs: enabled
+extraContainers: []
+extraEnvs:
+- name: ELASTIC_PASSWORD
+  value: RSxx23%^&*@#
+- name: ELASTIC_USERNAME
+  value: elastic
+extraInitContainers: []
+extraVolumeMounts: []
+extraVolumes: []
+fsGroup: ""
+fullnameOverride: ""
+httpPort: 9200
+image: docker.elastic.co/elasticsearch/elasticsearch
+imagePullPolicy: IfNotPresent
+imagePullSecrets: []
+imageTag: 7.8.0
+ingress:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  enabled: true
+  path: /elasticsearch(/|$)(.*)
+  tls: []
+initResources: {}
+keystore: []
+labels: {}
+lifecycle: {}
+masterService: ""
+masterTerminationFix: false
+maxUnavailable: 1
+minimumMasterNodes: 2
+nameOverride: ""
+networkHost: 0.0.0.0
+nodeAffinity: {}
+nodeGroup: master
+nodeSelector: {}
+persistence:
+  annotations: {}
+  enabled: true
+  name: elasticsearch
+  sc: nfs-provisioner
+  size: 10G
+podAnnotations: {}
+podManagementPolicy: Parallel
+podSecurityContext:
+  fsGroup: 1000
+  runAsUser: 1000
+podSecurityPolicy:
+  create: false
+  name: ""
+  spec:
+    fsGroup:
+      rule: RunAsAny
+    privileged: true
+    runAsUser:
+      rule: RunAsAny
+    seLinux:
+      rule: RunAsAny
+    supplementalGroups:
+      rule: RunAsAny
+    volumes:
+    - secret
+    - configMap
+    - persistentVolumeClaim
+priorityClassName: ""
+protocol: http
+rbac:
+  create: false
+  serviceAccountName: ""
+readinessProbe:
+  failureThreshold: 3
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  successThreshold: 3
+  timeoutSeconds: 5
+replicas: 3
+resources:
+  limits:
+    cpu: 1000m
+    memory: 2Gi
+  requests:
+    cpu: 1000m
+    memory: 2Gi
+roles:
+  data: "true"
+  ingest: "true"
+  master: "true"
+schedulerName: ""
+secretMounts: []
+securityContext:
+  capabilities:
+    drop:
+    - ALL
+  runAsNonRoot: true
+  runAsUser: 1000
+service:
+  annotations: {}
+  httpPortName: http
+  labels: {}
+  labelsHeadless: {}
+  loadBalancerIP: ""
+  loadBalancerSourceRanges: []
+  nodePort: ""
+  transportPortName: transport
+  type: ClusterIP
+sidecarResources: {}
+sysctlInitContainer:
+  enabled: true
+sysctlVmMaxMapCount: 262144
+terminationGracePeriod: 120
+tolerations: []
+transportPort: 9300
+updateStrategy: RollingUpdate
+volumeClaimTemplate:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 30Gi
+
+HOOKS:
+MANIFEST:
+---
+# Source: elasticsearch/templates/poddisruptionbudget.yaml
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: "elasticsearch-master-pdb"
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: "elasticsearch-master"
+---
+# Source: elasticsearch/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: elasticsearch-master-config
+  labels:
+    heritage: "Helm"
+    release: "elasticsearch"
+    chart: "elasticsearch"
+    app: "elasticsearch-master"
+data:
+  elasticsearch.yml: |
+    xpack.security.enabled: true
+    xpack.security.transport.ssl.enabled: true
+    xpack.security.transport.ssl.verification_mode: none
+    xpack.security.transport.ssl.key: /usr/share/elasticsearch/config/certs/key.pem
+    xpack.security.transport.ssl.certificate: /usr/share/elasticsearch/config/certs/crt.pem
+    xpack.security.transport.ssl.certificate_authorities: [ "/usr/share/elasticsearch/config/certs/ca.pem" ]
+---
+# Source: elasticsearch/templates/service.yaml
+kind: Service
+apiVersion: v1
+metadata:
+  name: elasticsearch-master
+  labels:
+    heritage: "Helm"
+    release: "elasticsearch"
+    chart: "elasticsearch"
+    app: "elasticsearch-master"
+  annotations:
+    {}
+spec:
+  type: ClusterIP
+  selector:
+    release: "elasticsearch"
+    chart: "elasticsearch"
+    app: "elasticsearch-master"
+  ports:
+  - name: http
+    protocol: TCP
+    port: 9200
+  - name: transport
+    protocol: TCP
+    port: 9300
+---
+# Source: elasticsearch/templates/service.yaml
+kind: Service
+apiVersion: v1
+metadata:
+  name: elasticsearch-master-headless
+  labels:
+    heritage: "Helm"
+    release: "elasticsearch"
+    chart: "elasticsearch"
+    app: "elasticsearch-master"
+  annotations:
+    service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
+spec:
+  clusterIP: None # This is needed for statefulset hostnames like elasticsearch-0 to resolve
+  # Create endpoints also if the related pod isn't ready
+  publishNotReadyAddresses: true
+  selector:
+    app: "elasticsearch-master"
+  ports:
+  - name: http
+    port: 9200
+  - name: transport
+    port: 9300
+---
+# Source: elasticsearch/templates/statefulset.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: elasticsearch-master
+  labels:
+    heritage: "Helm"
+    release: "elasticsearch"
+    chart: "elasticsearch"
+    app: "elasticsearch-master"
+  annotations:
+    esMajorVersion: "7"
+spec:
+  serviceName: elasticsearch-master-headless
+  selector:
+    matchLabels:
+      app: "elasticsearch-master"
+  replicas: 3
+  podManagementPolicy: Parallel
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      name: "elasticsearch-master"
+      labels:
+        heritage: "Helm"
+        release: "elasticsearch"
+        chart: "elasticsearch"
+        app: "elasticsearch-master"
+        exportLogs: enabled
+      annotations:
+        
+        configchecksum: d2867c10c07c052e76fca094f839d7ae676a373a965a6150bb4b41cbf5dda74
+    spec:
+      securityContext:
+        fsGroup: 1000
+        runAsUser: 1000
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - "elasticsearch-master"
+            topologyKey: kubernetes.io/hostname
+      terminationGracePeriodSeconds: 120
+      volumes:
+        - name: secret-volume
+          secret:
+            secretName: ssl
+        - name: esconfig
+          configMap:
+            name: elasticsearch-master-config
+      enableServiceLinks: true
+      initContainers:
+      - name: configure-sysctl
+        securityContext:
+          runAsUser: 0
+          privileged: true
+        image: "docker.elastic.co/elasticsearch/elasticsearch:7.8.0"
+        imagePullPolicy: "IfNotPresent"
+        command: ["sysctl", "-w", "vm.max_map_count=262144; bin/elasticsearch-certutil ca --out /usr/share/elasticsearch/data/elastic-stack-ca.p12 --pass ''"]
+        resources:
+          {}
+
+      containers:
+      - name: "elasticsearch"
+        securityContext:
+          capabilities:
+            drop:
+            - ALL
+          runAsNonRoot: true
+          runAsUser: 1000
+        image: "docker.elastic.co/elasticsearch/elasticsearch:7.8.0"
+        imagePullPolicy: "IfNotPresent"
+        readinessProbe:
+          exec:
+            command:
+              - sh
+              - -c
+              - |
+                #!/usr/bin/env bash -e
+                # If the node is starting up wait for the cluster to be ready (request params: "wait_for_status=green&timeout=1s" )
+                # Once it has started only check that the node itself is responding
+                START_FILE=/tmp/.es_start_file
+
+                http () {
+                  local path="${1}"
+                  local args="${2}"
+                  set -- -XGET -s
+
+                  if [ "$args" != "" ]; then
+                    set -- "$@" $args
+                  fi
+
+                  if [ -n "${ELASTIC_USERNAME}" ] && [ -n "${ELASTIC_PASSWORD}" ]; then
+                    set -- "$@" -u "${ELASTIC_USERNAME}:${ELASTIC_PASSWORD}"
+                  fi
+
+                  curl --output /dev/null -k "$@" "http://127.0.0.1:9200${path}"
+                }
+
+                if [ -f "${START_FILE}" ]; then
+                  echo 'Elasticsearch is already running, lets check the node is healthy'
+                  HTTP_CODE=$(http "/" "-w %{http_code}")
+                  RC=$?
+                  if [[ ${RC} -ne 0 ]]; then
+                    echo "curl --output /dev/null -k -XGET -s -w '%{http_code}' \${BASIC_AUTH} http://127.0.0.1:9200/ failed with RC ${RC}"
+                    exit ${RC}
+                  fi
+                  # ready if HTTP code 200, 503 is tolerable if ES version is 6.x
+                  if [[ ${HTTP_CODE} == "200" ]]; then
+                    exit 0
+                  elif [[ ${HTTP_CODE} == "503" && "7" == "6" ]]; then
+                    exit 0
+                  else
+                    echo "curl --output /dev/null -k -XGET -s -w '%{http_code}' \${BASIC_AUTH} http://127.0.0.1:9200/ failed with HTTP code ${HTTP_CODE}"
+                    exit 1
+                  fi
+
+                else
+                  echo 'Waiting for elasticsearch cluster to become ready (request params: "wait_for_status=green&timeout=1s" )'
+                  if http "/_cluster/health?wait_for_status=green&timeout=1s" "--fail" ; then
+                    touch ${START_FILE}
+                    exit 0
+                  else
+                    echo 'Cluster is not yet ready (request params: "wait_for_status=green&timeout=1s" )'
+                    exit 1
+                  fi
+                fi
+          failureThreshold: 3
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 3
+          timeoutSeconds: 5
+        ports:
+        - name: http
+          containerPort: 9200
+        - name: transport
+          containerPort: 9300
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 2Gi
+          requests:
+            cpu: 1000m
+            memory: 2Gi
+        env:
+          - name: node.name
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+          - name: cluster.initial_master_nodes
+            value: "elasticsearch-master-0,elasticsearch-master-1,elasticsearch-master-2,"
+          - name: discovery.seed_hosts
+            value: "elasticsearch-master-headless"
+          - name: cluster.name
+            value: "elasticsearch"
+          - name: network.host
+            value: "0.0.0.0"
+          - name: ES_JAVA_OPTS
+            value: "-Xmx1g -Xms1g"
+          - name: node.data
+            value: "true"
+          - name: node.ingest
+            value: "true"
+          - name: node.master
+            value: "true"
+          - name: ELASTIC_PASSWORD
+            value: RSxx23%^&*@#
+          - name: ELASTIC_USERNAME
+            value: elastic
+        volumeMounts:
+          - name: secret-volume
+            readOnly: true
+            mountPath: "/usr/share/elasticsearch/config/certs"
+          - name: "es"
+            mountPath: /usr/share/elasticsearch/data
+
+          - name: esconfig
+            mountPath: /usr/share/elasticsearch/config/elasticsearch.yml
+            subPath: elasticsearch.yml
+  volumeClaimTemplates:
+  - metadata:
+      name: "es"
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      storageClassName: nfs-provisioner
+      resources:
+        requests:
+          storage: 10G
+---
+# Source: elasticsearch/templates/ingress.yaml
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: elasticsearch
+  namespace: monitoring
+  annotations:
+    ingress.kubernetes.io/class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /elasticsearch(/|$)(.*)
+        backend:
+          serviceName: elasticsearch-master
+          servicePort: 9200
+
+NOTES:
+1. Watch all cluster members come up.
+  $ kubectl get pods --namespace=monitoring -l app=elasticsearch-master -w
+2. Test cluster health using Helm test.
+  $ helm test elasticsearch --cleanup

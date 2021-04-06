@@ -1,0 +1,290 @@
+NAME: kib
+LAST DEPLOYED: Sun Mar 14 17:18:26 2021
+NAMESPACE: monitoring
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+USER-SUPPLIED VALUES:
+affinity: {}
+dummy: value
+elasticsearch:
+  password: RSxx23%^&*@#
+  username: elastic
+elasticsearchHosts: http://elasticsearch-master:9200
+elasticsearchURL: ""
+envFrom: []
+envRenderSecret: {}
+exportLogs: enabled
+extraContainers: ""
+extraEnvs:
+- name: NODE_OPTIONS
+  value: --max-old-space-size=1800
+extraInitContainers: ""
+fullnameOverride: ""
+healthCheckPath: /app/kibana
+httpPort: 5601
+image: docker.elastic.co/kibana/kibana
+imagePullPolicy: IfNotPresent
+imagePullSecrets: []
+imageTag: 7.8.0
+ingress:
+  annotations: {}
+  enabled: false
+  hosts:
+  - chart-example.local
+  path: /
+  tls: []
+kibanaConfig: {}
+labels: {}
+lifecycle: {}
+nameOverride: ""
+nodeSelector: {}
+podAnnotations: {}
+podSecurityContext:
+  fsGroup: 1000
+priorityClassName: ""
+protocol: http
+readinessProbe:
+  failureThreshold: 3
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  successThreshold: 3
+  timeoutSeconds: 5
+replicas: 1
+resources:
+  limits:
+    cpu: 1000m
+    memory: 2Gi
+  requests:
+    cpu: 1000m
+    memory: 2Gi
+secretMounts: []
+securityContext:
+  capabilities:
+    drop:
+    - ALL
+  runAsNonRoot: true
+  runAsUser: 1000
+serverHost: 0.0.0.0
+service:
+  annotations: {}
+  labels: {}
+  loadBalancerSourceRanges: []
+  nodePort: 30601
+  port: 5601
+  type: NodePort
+serviceAccount: ""
+tolerations: []
+updateStrategy:
+  type: Recreate
+
+COMPUTED VALUES:
+affinity: {}
+dummy: value
+elasticsearch:
+  password: RSxx23%^&*@#
+  username: elastic
+elasticsearchHosts: http://elasticsearch-master:9200
+elasticsearchURL: ""
+envFrom: []
+envRenderSecret: {}
+exportLogs: enabled
+extraContainers: ""
+extraEnvs:
+- name: NODE_OPTIONS
+  value: --max-old-space-size=1800
+extraInitContainers: ""
+fullnameOverride: ""
+healthCheckPath: /app/kibana
+httpPort: 5601
+image: docker.elastic.co/kibana/kibana
+imagePullPolicy: IfNotPresent
+imagePullSecrets: []
+imageTag: 7.8.0
+ingress:
+  annotations: {}
+  enabled: false
+  hosts:
+  - chart-example.local
+  path: /
+  tls: []
+kibanaConfig: {}
+labels: {}
+lifecycle: {}
+nameOverride: ""
+nodeSelector: {}
+podAnnotations: {}
+podSecurityContext:
+  fsGroup: 1000
+priorityClassName: ""
+protocol: http
+readinessProbe:
+  failureThreshold: 3
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  successThreshold: 3
+  timeoutSeconds: 5
+replicas: 1
+resources:
+  limits:
+    cpu: 1000m
+    memory: 2Gi
+  requests:
+    cpu: 1000m
+    memory: 2Gi
+secretMounts: []
+securityContext:
+  capabilities:
+    drop:
+    - ALL
+  runAsNonRoot: true
+  runAsUser: 1000
+serverHost: 0.0.0.0
+service:
+  annotations: {}
+  labels: {}
+  loadBalancerSourceRanges: []
+  nodePort: 30601
+  port: 5601
+  type: NodePort
+serviceAccount: ""
+tolerations: []
+updateStrategy:
+  type: Recreate
+
+HOOKS:
+MANIFEST:
+---
+# Source: kibana/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: kib-kibana
+  labels: 
+    helm.sh/chart: kibana-8.0.0-SNAPSHOT
+    app.kubernetes.io/version: "7.8.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: NodePort
+  ports:
+    - port: 5601
+      nodePort: 30601
+      protocol: TCP
+      name: http
+      targetPort: 5601
+  selector:
+    app: kibana
+    release: "kib"
+---
+# Source: kibana/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kib-kibana
+  labels: 
+    helm.sh/chart: kibana-8.0.0-SNAPSHOT
+    app.kubernetes.io/version: "7.8.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: kibana
+      release: "kib"
+  template:
+    metadata:
+      labels:
+        app: kibana
+        exportLogs: enabled
+        release: "kib"
+      annotations:
+        
+    spec:
+      securityContext:
+        fsGroup: 1000
+      volumes:
+       #
+      containers:
+      - name: kibana
+        securityContext:
+          capabilities:
+            drop:
+            - ALL
+          runAsNonRoot: true
+          runAsUser: 1000
+        image: "docker.elastic.co/kibana/kibana:7.8.0"
+        imagePullPolicy: "IfNotPresent"
+        env:
+          - name: ELASTICSEARCH_HOSTS
+            value: "http://elasticsearch-master:9200"
+          - name: SERVER_HOST
+            value: "0.0.0.0"
+          - name: SERVER_BASEPATH
+            value: "/kibana"
+          - name: ELASTICSEARCH_USERNAME
+            value: "elastic"
+          - name: ELASTICSEARCH_PASSWORD
+            value: "RSxx23%^&*@#"
+          - name: NODE_OPTIONS
+            value: --max-old-space-size=1800
+        readinessProbe:
+          failureThreshold: 3
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          successThreshold: 3
+          timeoutSeconds: 5
+          exec:
+            command:
+              - sh
+              - -c
+              - |
+                #!/usr/bin/env bash -e
+                http () {
+                    local path="${1}"
+                    set -- -XGET -s --fail -L
+
+                    if [ -n "${ELASTICSEARCH_USERNAME}" ] && [ -n "${ELASTICSEARCH_PASSWORD}" ]; then
+                      set -- "$@" -u "${ELASTICSEARCH_USERNAME}:${ELASTICSEARCH_PASSWORD}"
+                    fi
+
+                    STATUS=$(curl --output /dev/null --write-out "%{http_code}" -k "$@" "http://localhost:5601${path}")
+                    if [[ "${STATUS}" -eq 200 ]]; then
+                      exit 0
+                    fi
+
+                    echo "Error: Got HTTP code ${STATUS} but expected a 200"
+                    exit 1
+                }
+
+                http "/app/kibana"
+        ports:
+        - containerPort: 5601
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 2Gi
+          requests:
+            cpu: 1000m
+            memory: 2Gi
+        volumeMounts:
+---
+# Source: kibana/templates/ingress.yaml
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: kibana
+  namespace: monitoring 
+  annotations:
+    ingress.kubernetes.io/class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /kibana(/|$)(.*)
+        backend:
+          serviceName: kib-kibana
+          servicePort: 5601
+

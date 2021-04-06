@@ -1,0 +1,11 @@
+- hosts: console
+ # become: yes
+  #vars:
+    #kube_config: '{{clusters.mz.kube_config}}'
+
+  tasks:
+    - name: copy a file from pod to local
+      command: kubectl --kubeconfig /home/mosipuser/.kube/mzcluster.config --namespace monitoring cp elasticsearch-master-2:/usr/share/elasticsearch/certs helm/charts/elasticsearch/certs
+      #shell: kcm cp elasticsearch-master-0:/usr/share/elasticsearch/certs/jkl helm/charts/elasticsearch/certs/jkl 
+    #  command: kubectl --kubeconfig {{clusters.mz.kube_config}} --namespace monitoring cp elasticsearch-master-2:/usr/share/elasticsearch/certs/jkl helm/charts/elasticsearch/certs/jkl
+     # shell: 'kubectl --kubeconfig {{kube_config}} --namespace monitoring {{install_name}}-elasticsearch  cp elasticsearch-master-2:/usr/share/elasticsearch/certs/jkl helm/charts/elasticsearch/certs/ 

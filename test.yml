@@ -1,0 +1,18 @@
+# Apply custom config
+- hosts: console
+  vars:
+    kube_config: '{{kube_config}}'
+    install_name: 'graf'
+    is_template: true
+    helm_chart: 'grafana/grafana'  # Assumed grafana repo has already been added in Helm
+  #  helm_namespace: '{{ mon_prop.namespace }}'
+    helm_values: '{{charts_root}}/grafana/values.template.j2'
+    helm_strings: ''
+  roles:
+    - {role:  helm}
+
+  tasks:
+    - name: Get inside of pod 
+      shell: 'kubectl --kubeconfig {{kube_config}}  --namespace monitoring exec -it elasticsearch-master-0 -- sh'
+    #- name: list the files
+      #shell: 'touch test-1'

@@ -1,0 +1,59 @@
+- hosts: console
+  
+  tasks:
+    - name: "Run {{ item }}"
+      community.kubernetes.k8s_exec:
+        kubeconfig: /home/mosipuser/.kube/mzcluster.config
+        namespace: monitoring
+        pod: elasticsearch-master-2
+        command: mkdir certs
+
+    - name: "Run {{ item }}"
+      community.kubernetes.k8s_exec:
+        kubeconfig: /home/mosipuser/.kube/mzcluster.config
+        namespace: monitoring
+        pod: elasticsearch-master-2
+        command: ./bin/elasticsearch-certutil ca --out certs/elastic-stack-ca.p12 --pass ""
+
+    - name: "Run {{ item }}"
+      community.kubernetes.k8s_exec:
+        kubeconfig: /home/mosipuser/.kube/mzcluster.config
+        namespace: monitoring
+        pod: elasticsearch-master-2
+        command: ./bin/elasticsearch-certutil cert --ca certs/elastic-stack-ca.p12 --ca-pass "" --out certs/elastic-certificates.p12 --pass ""
+  tasks:
+    - name: copy a file from pod to console
+      shell: kubectl --kubeconfig /home/mosipuser/.kube/mzcluster.config --namespace monitoring cp elasticsearch-master-2:/usr/share/elasticsearch/certs helm/charts/elasticsearch/certs
+
+   # - name: "copy files to console" 
+    #  community.kubernetes.k8s_exec:
+     #   kubeconfig: /home/mosipuser/.kube/mzcluster.config
+      #  namespace: monitoring
+       # pod: elasticsearch-master-2
+        #ansible.builtin.copy:
+         # src: /usr/share/elasticsearch/certs/*
+          #dest: helm/charts/elasticsearch
+        #command: kcm cp elasticsearch-master-2:/usr/share/elasticsearch/certs helm/charts/elasticsearch/certs 
+        # - mkdir certs
+        # - ./bin/elasticsearch-certutil ca --out certs/elastic-stack-ca.p12 --pass ""
+        # - ./bin/elasticsearch-certutil cert --ca certs/elastic-stack-ca.p12 --ca-pass "" --out certs/elastic-certificates.p12 --pass ""
+        #expect:
+        #command: mkdir -v certs; ./bin/elasticsearch-certutil ca --out certs/elastic-stack-ca.p12 --pass ""
+          #become_method: sudo
+          #become: yes
+          #responses: 
+            #Question:
+              #- ''          #I want to have ansible hit enter
+ # tasks: 
+    
+  #  - name: Copy a file from pod to host
+   #   community.kubernetes.k8s_exec:
+    #    kubeconfig: /home/mosipuser/.kube/mzcluster.config
+     #   namespace: monitoring
+  #copy: 
+   # src: /usr/share/elasticsearch/sunitha/test1
+    #dest: /helm/charts/elasticsearch
+      
+#'PRESS \<ENTER\> TO CONTINUE:': ''
+            
+    

@@ -1,0 +1,20 @@
+---
+- hosts: console
+  tasks:
+    - name: Token | Add k8s pod to inventory
+      become: true
+      add_host:
+        kubeconfig: /home/mosipuser/.kube/mzcluster.config
+        name: mzworker1.sb
+        ansible_connection: kubectl
+        ansible_kubectl_namespace: monitoring 
+ 
+    - name: Token | Deploy testfile to K8s Pod
+      copy:
+        src: /testfile.txt
+        dest: /usr/share/elasticsearch/certs/testfile.txt
+      delegate_to: mzworker1.sb
+ 
+    - name: Token | Get testfile from K8s Pod
+      command: cat /usr/share/elasticsearch/certs/testfile.txt
+      delegate_to: mzworker1.sb

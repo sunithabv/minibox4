@@ -1,0 +1,14 @@
+sb.    IN  SOA dns.sb. admin.sb. 2015082541 7200 3600 315360000 3600
+console.sb.    IN    A    10.20.20.10
+dmzworker0.sb.    IN    A    10.20.20.200
+dmzmaster.sb.    IN    A    10.20.20.199
+mzworker0.sb.    IN    A    10.20.20.100
+mzworker1.sb.    IN    A    10.20.20.101
+mzworker2.sb.    IN    A    10.20.20.102
+mzworker3.sb.    IN    A    10.20.20.103
+mzworker4.sb.    IN    A    10.20.20.104
+mzworker5.sb.    IN    A    10.20.20.105
+mzworker6.sb.    IN    A    10.20.20.106
+mzworker7.sb.    IN    A    10.20.20.107
+mzworker8.sb.    IN    A    10.20.20.108
+mzmaster.sb.    IN    A    10.20.20.99

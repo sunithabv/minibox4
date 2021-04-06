@@ -1,0 +1,3 @@
+ingress.    IN  SOA dns.ingress. admin.ingress. 2015082541 7200 3600 315360000 3600
+dmz.ingress.   IN   A 10.20.20.200
+mz.ingress.   IN   A 10.20.20.100

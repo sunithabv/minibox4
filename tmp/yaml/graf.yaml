@@ -1,0 +1,1091 @@
+NAME: graf
+LAST DEPLOYED: Sun Mar 14 17:16:55 2021
+NAMESPACE: monitoring
+STATUS: deployed
+REVISION: 1
+USER-SUPPLIED VALUES:
+admin:
+  existingSecret: ""
+  passwordKey: admin-password
+  userKey: admin-user
+adminUser: admin
+affinity: {}
+containerSecurityContext: {}
+dashboardProviders:
+  dashboardproviders.yaml:
+    apiVersion: 1
+    providers:
+    - allowUiUpdates: true
+      disableDeletion: false
+      editable: true
+      folder: ""
+      name: default
+      options:
+        path: /var/lib/grafana/dashboards/default
+      orgId: 1
+      type: file
+dashboards:
+  default:
+    node-dashboard:
+      file: dashboards/dashboard_node.json
+dashboardsConfigMaps: {}
+datasources: {}
+deploymentStrategy:
+  type: RollingUpdate
+downloadDashboards:
+  env: {}
+  resources: {}
+downloadDashboardsImage:
+  pullPolicy: IfNotPresent
+  repository: curlimages/curl
+  sha: ""
+  tag: 7.73.0
+dummy: value
+env: {}
+envFromSecret: ""
+envRenderSecret: {}
+envValueFrom: {}
+exportLogs: enabled
+extraConfigmapMounts: []
+extraContainerVolumes: []
+extraContainers: ""
+extraEmptyDirMounts: []
+extraExposePorts: []
+extraInitContainers: []
+extraSecretMounts: []
+extraVolumeMounts: []
+grafana.ini:
+  analytics:
+    check_for_updates: true
+  grafana_net:
+    url: https://grafana.net
+  log:
+    mode: console
+  paths:
+    data: /var/lib/grafana/data
+    logs: /var/log/grafana
+    plugins: /var/lib/grafana/plugins
+    provisioning: /etc/grafana/provisioning
+  server:
+    root_url: https://minibox4.mosip.net/mz-grafana
+    serve_from_sub_path: true
+hostAliases: []
+image:
+  pullPolicy: IfNotPresent
+  repository: grafana/grafana
+  sha: ""
+  tag: 7.3.5
+imageRenderer:
+  enabled: false
+  env:
+    HTTP_HOST: 0.0.0.0
+  hostAliases: []
+  image:
+    pullPolicy: Always
+    repository: grafana/grafana-image-renderer
+    sha: ""
+    tag: latest
+  networkPolicy:
+    limitEgress: false
+    limitIngress: true
+  podPortName: http
+  priorityClassName: ""
+  replicas: 1
+  resources: {}
+  revisionHistoryLimit: 10
+  securityContext: {}
+  service:
+    port: 8081
+    portName: http
+    targetPort: 8081
+  serviceAccountName: ""
+ingress:
+  annotations: {}
+  enabled: true
+  extraPaths: []
+  hosts: []
+  labels: {}
+  path: /mz-grafana
+  tls: []
+initChownData:
+  enabled: true
+  image:
+    pullPolicy: IfNotPresent
+    repository: busybox
+    sha: ""
+    tag: 1.31.1
+  resources: {}
+ldap:
+  config: ""
+  enabled: false
+  existingSecret: ""
+livenessProbe:
+  failureThreshold: 10
+  httpGet:
+    path: /api/health
+    port: 3000
+  initialDelaySeconds: 60
+  timeoutSeconds: 30
+namespaceOverride: ""
+nodeSelector: {}
+notifiers:
+  notifiers.yaml:
+    notifiers:
+    - disable_resolve_message: false
+      frequency: 30m
+      is_default: true
+      name: prometheus_alerts
+      org_id: 1
+      send_reminder: true
+      settings:
+        url: https://hooks.slack.com/services/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
+      type: slack
+      uid: mosip
+persistence:
+  accessModes:
+  - ReadWriteOnce
+  enabled: true
+  size: 1Gi
+  storageClassName: nfs-provisioner
+  type: pvc
+plugins: []
+podDisruptionBudget: {}
+podPortName: grafana
+rbac:
+  create: true
+  extraClusterRoleRules: []
+  extraRoleRules: []
+  namespaced: false
+  pspEnabled: true
+  pspUseAppArmor: true
+readinessProbe:
+  httpGet:
+    path: /api/health
+    port: 3000
+replicas: 1
+resources: {}
+revisionHistoryLimit: 10
+securityContext:
+  fsGroup: 472
+  runAsGroup: 472
+  runAsUser: 472
+service:
+  annotations: {}
+  labels: {}
+  port: 80
+  portName: service
+  targetPort: 3000
+  type: ClusterIP
+serviceAccount:
+  create: true
+  name: null
+  nameTest: null
+serviceMonitor:
+  enabled: false
+  interval: 1m
+  labels: {}
+  path: /metrics
+  relabelings: []
+  scheme: http
+  scrapeTimeout: 30s
+  tlsConfig: {}
+sidecar:
+  dashboards:
+    SCProvider: true
+    defaultFolderName: null
+    enabled: false
+    folder: /tmp/dashboards
+    folderAnnotation: null
+    label: grafana_dashboard
+    labelValue: null
+    provider:
+      allowUiUpdates: false
+      disableDelete: false
+      folder: ""
+      foldersFromFilesStructure: false
+      name: sidecarProvider
+      orgid: 1
+      type: file
+    searchNamespace: null
+  datasources:
+    enabled: true
+    label: grafana_datasource
+  enableUniqueFilenames: false
+  image:
+    repository: kiwigrid/k8s-sidecar
+    sha: ""
+    tag: 1.1.0
+  imagePullPolicy: IfNotPresent
+  notifiers:
+    enabled: false
+    label: grafana_notifier
+    searchNamespace: null
+  resources: {}
+smtp:
+  existingSecret: ""
+  passwordKey: password
+  userKey: user
+testFramework:
+  enabled: true
+  image: bats/bats
+  imagePullPolicy: IfNotPresent
+  securityContext: {}
+  tag: v1.1.0
+tolerations: []
+
+COMPUTED VALUES:
+admin:
+  existingSecret: ""
+  passwordKey: admin-password
+  userKey: admin-user
+adminUser: admin
+affinity: {}
+containerSecurityContext: {}
+dashboardProviders:
+  dashboardproviders.yaml:
+    apiVersion: 1
+    providers:
+    - allowUiUpdates: true
+      disableDeletion: false
+      editable: true
+      folder: ""
+      name: default
+      options:
+        path: /var/lib/grafana/dashboards/default
+      orgId: 1
+      type: file
+dashboards:
+  default:
+    node-dashboard:
+      file: dashboards/dashboard_node.json
+dashboardsConfigMaps: {}
+datasources: {}
+deploymentStrategy:
+  type: RollingUpdate
+downloadDashboards:
+  env: {}
+  envFromSecret: ""
+  resources: {}
+downloadDashboardsImage:
+  pullPolicy: IfNotPresent
+  repository: curlimages/curl
+  sha: ""
+  tag: 7.73.0
+dummy: value
+env: {}
+envFromSecret: ""
+envRenderSecret: {}
+envValueFrom: {}
+exportLogs: enabled
+extraConfigmapMounts: []
+extraContainerVolumes: []
+extraContainers: ""
+extraEmptyDirMounts: []
+extraExposePorts: []
+extraInitContainers: []
+extraLabels: {}
+extraSecretMounts: []
+extraVolumeMounts: []
+grafana.ini:
+  analytics:
+    check_for_updates: true
+  grafana_net:
+    url: https://grafana.net
+  log:
+    mode: console
+  paths:
+    data: /var/lib/grafana/data
+    logs: /var/log/grafana
+    plugins: /var/lib/grafana/plugins
+    provisioning: /etc/grafana/provisioning
+  server:
+    root_url: https://minibox4.mosip.net/mz-grafana
+    serve_from_sub_path: true
+hostAliases: []
+image:
+  pullPolicy: IfNotPresent
+  repository: grafana/grafana
+  sha: ""
+  tag: 7.3.5
+imageRenderer:
+  enabled: false
+  env:
+    HTTP_HOST: 0.0.0.0
+  hostAliases: []
+  image:
+    pullPolicy: Always
+    repository: grafana/grafana-image-renderer
+    sha: ""
+    tag: latest
+  networkPolicy:
+    limitEgress: false
+    limitIngress: true
+  podPortName: http
+  priorityClassName: ""
+  replicas: 1
+  resources: {}
+  revisionHistoryLimit: 10
+  securityContext: {}
+  service:
+    port: 8081
+    portName: http
+    targetPort: 8081
+  serviceAccountName: ""
+ingress:
+  annotations: {}
+  enabled: true
+  extraPaths: []
+  hosts: []
+  labels: {}
+  path: /mz-grafana
+  pathType: Prefix
+  tls: []
+initChownData:
+  enabled: true
+  image:
+    pullPolicy: IfNotPresent
+    repository: busybox
+    sha: ""
+    tag: 1.31.1
+  resources: {}
+ldap:
+  config: ""
+  enabled: false
+  existingSecret: ""
+livenessProbe:
+  failureThreshold: 10
+  httpGet:
+    path: /api/health
+    port: 3000
+  initialDelaySeconds: 60
+  timeoutSeconds: 30
+namespaceOverride: ""
+nodeSelector: {}
+notifiers:
+  notifiers.yaml:
+    notifiers:
+    - disable_resolve_message: false
+      frequency: 30m
+      is_default: true
+      name: prometheus_alerts
+      org_id: 1
+      send_reminder: true
+      settings:
+        url: https://hooks.slack.com/services/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
+      type: slack
+      uid: mosip
+persistence:
+  accessModes:
+  - ReadWriteOnce
+  enabled: true
+  finalizers:
+  - kubernetes.io/pvc-protection
+  inMemory:
+    enabled: false
+  size: 1Gi
+  storageClassName: nfs-provisioner
+  type: pvc
+plugins: []
+podDisruptionBudget: {}
+podPortName: grafana
+rbac:
+  create: true
+  extraClusterRoleRules: []
+  extraRoleRules: []
+  namespaced: false
+  pspEnabled: true
+  pspUseAppArmor: true
+readinessProbe:
+  httpGet:
+    path: /api/health
+    port: 3000
+replicas: 1
+resources: {}
+revisionHistoryLimit: 10
+securityContext:
+  fsGroup: 472
+  runAsGroup: 472
+  runAsUser: 472
+service:
+  annotations: {}
+  labels: {}
+  port: 80
+  portName: service
+  targetPort: 3000
+  type: ClusterIP
+serviceAccount:
+  create: true
+serviceMonitor:
+  enabled: false
+  interval: 1m
+  labels: {}
+  path: /metrics
+  relabelings: []
+  scheme: http
+  scrapeTimeout: 30s
+  tlsConfig: {}
+sidecar:
+  dashboards:
+    SCProvider: true
+    enabled: false
+    folder: /tmp/dashboards
+    label: grafana_dashboard
+    provider:
+      allowUiUpdates: false
+      disableDelete: false
+      folder: ""
+      foldersFromFilesStructure: false
+      name: sidecarProvider
+      orgid: 1
+      type: file
+  datasources:
+    enabled: true
+    label: grafana_datasource
+    labelValue: null
+    searchNamespace: null
+  enableUniqueFilenames: false
+  image:
+    repository: kiwigrid/k8s-sidecar
+    sha: ""
+    tag: 1.1.0
+  imagePullPolicy: IfNotPresent
+  notifiers:
+    enabled: false
+    label: grafana_notifier
+  resources: {}
+smtp:
+  existingSecret: ""
+  passwordKey: password
+  userKey: user
+testFramework:
+  enabled: true
+  image: bats/bats
+  imagePullPolicy: IfNotPresent
+  securityContext: {}
+  tag: v1.1.0
+tolerations: []
+
+HOOKS:
+---
+# Source: grafana/templates/tests/test.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: graf-grafana-test
+  labels:
+    helm.sh/chart: grafana-6.6.1
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/instance: graf
+    app.kubernetes.io/version: "7.3.5"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test-success
+  namespace: monitoring
+spec:
+  serviceAccountName: graf-grafana-test
+  containers:
+    - name: graf-test
+      image: "bats/bats:v1.1.0"
+      imagePullPolicy: "IfNotPresent"
+      command: ["/opt/bats/bin/bats", "-t", "/tests/run.sh"]
+      volumeMounts:
+        - mountPath: /tests
+          name: tests
+          readOnly: true
+  volumes:
+  - name: tests
+    configMap:
+      name: graf-grafana-test
+  restartPolicy: Never
+MANIFEST:
+---
+# Source: grafana/templates/podsecuritypolicy.yaml
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: graf-grafana
+  namespace: monitoring
+  labels:
+    helm.sh/chart: grafana-6.6.1
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/instance: graf
+    app.kubernetes.io/version: "7.3.5"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    seccomp.security.alpha.kubernetes.io/allowedProfileNames: 'docker/default,runtime/default'
+    seccomp.security.alpha.kubernetes.io/defaultProfileName:  'docker/default'
+    apparmor.security.beta.kubernetes.io/allowedProfileNames: 'runtime/default'
+    apparmor.security.beta.kubernetes.io/defaultProfileName:  'runtime/default'
+spec:
+  privileged: false
+  allowPrivilegeEscalation: false
+  requiredDropCapabilities:
+    # Default set from Docker, without DAC_OVERRIDE or CHOWN
+    - FOWNER
+    - FSETID
+    - KILL
+    - SETGID
+    - SETUID
+    - SETPCAP
+    - NET_BIND_SERVICE
+    - NET_RAW
+    - SYS_CHROOT
+    - MKNOD
+    - AUDIT_WRITE
+    - SETFCAP
+  volumes:
+    - 'configMap'
+    - 'emptyDir'
+    - 'projected'
+    - 'csi'
+    - 'secret'
+    - 'downwardAPI'
+    - 'persistentVolumeClaim'
+  hostNetwork: false
+  hostIPC: false
+  hostPID: false
+  runAsUser:
+    rule: 'RunAsAny'
+  seLinux:
+    rule: 'RunAsAny'
+  supplementalGroups:
+    rule: 'RunAsAny'
+  fsGroup:
+    rule: 'RunAsAny'
+  readOnlyRootFilesystem: false
+---
+# Source: grafana/templates/tests/test-podsecuritypolicy.yaml
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: graf-grafana-test
+  namespace: monitoring
+  labels:
+    helm.sh/chart: grafana-6.6.1
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/instance: graf
+    app.kubernetes.io/version: "7.3.5"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  allowPrivilegeEscalation: true
+  privileged: false
+  hostNetwork: false
+  hostIPC: false
+  hostPID: false
+  fsGroup:
+    rule: RunAsAny
+  seLinux:
+    rule: RunAsAny
+  supplementalGroups:
+    rule: RunAsAny
+  runAsUser:
+    rule: RunAsAny
+  volumes:
+  - configMap
+  - downwardAPI
+  - emptyDir
+  - projected
+  - csi
+  - secret
+---
+# Source: grafana/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    helm.sh/chart: grafana-6.6.1
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/instance: graf
+    app.kubernetes.io/version: "7.3.5"
+    app.kubernetes.io/managed-by: Helm
+  name: graf-grafana
+  namespace: monitoring
+---
+# Source: grafana/templates/tests/test-serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    helm.sh/chart: grafana-6.6.1
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/instance: graf
+    app.kubernetes.io/version: "7.3.5"
+    app.kubernetes.io/managed-by: Helm
+  name: graf-grafana-test
+  namespace: monitoring
+---
+# Source: grafana/templates/secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: graf-grafana
+  namespace: monitoring
+  labels:
+    helm.sh/chart: grafana-6.6.1
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/instance: graf
+    app.kubernetes.io/version: "7.3.5"
+    app.kubernetes.io/managed-by: Helm
+type: Opaque
+data:
+  admin-user: "YWRtaW4="
+  admin-password: "d3B1MHNvUmNFNDhRaGpnUkJvc2Q0NmN4YmUwejRLWHNzNEd2SEpzeA=="
+  ldap-toml: ""
+---
+# Source: grafana/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: graf-grafana
+  namespace: monitoring
+  labels:
+    helm.sh/chart: grafana-6.6.1
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/instance: graf
+    app.kubernetes.io/version: "7.3.5"
+    app.kubernetes.io/managed-by: Helm
+data:
+  grafana.ini: |
+    [analytics]
+    check_for_updates = true
+    [grafana_net]
+    url = https://grafana.net
+    [log]
+    mode = console
+    [paths]
+    data = /var/lib/grafana/data
+    logs = /var/log/grafana
+    plugins = /var/lib/grafana/plugins
+    provisioning = /etc/grafana/provisioning
+    [server]
+    root_url = https://minibox4.mosip.net/mz-grafana
+    serve_from_sub_path = true
+  notifiers.yaml: |
+    notifiers:
+    - disable_resolve_message: false
+      frequency: 30m
+      is_default: true
+      name: prometheus_alerts
+      org_id: 1
+      send_reminder: true
+      settings:
+        url: https://hooks.slack.com/services/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
+      type: slack
+      uid: mosip
+  dashboardproviders.yaml: |
+    apiVersion: 1
+    providers:
+    - allowUiUpdates: true
+      disableDeletion: false
+      editable: true
+      folder: ""
+      name: default
+      options:
+        path: /var/lib/grafana/dashboards/default
+      orgId: 1
+      type: file
+  download_dashboards.sh: |
+    #!/usr/bin/env sh
+    set -euf
+    mkdir -p /var/lib/grafana/dashboards/default
+---
+# Source: grafana/templates/dashboards-json-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: graf-grafana-dashboards-default
+  namespace: monitoring
+  labels:
+    helm.sh/chart: grafana-6.6.1
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/instance: graf
+    app.kubernetes.io/version: "7.3.5"
+    app.kubernetes.io/managed-by: Helm
+    dashboard-provider: default
+data:
+  node-dashboard.json:
+    ""
+---
+# Source: grafana/templates/tests/test-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: graf-grafana-test
+  namespace: monitoring
+  labels:
+    helm.sh/chart: grafana-6.6.1
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/instance: graf
+    app.kubernetes.io/version: "7.3.5"
+    app.kubernetes.io/managed-by: Helm
+data:
+  run.sh: |-
+    @test "Test Health" {
+      url="http://graf-grafana/api/health"
+
+      code=$(wget --server-response --spider --timeout 10 --tries 1 ${url} 2>&1 | awk '/^  HTTP/{print $2}')
+      [ "$code" == "200" ]
+    }
+---
+# Source: grafana/templates/pvc.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: graf-grafana
+  namespace: monitoring
+  labels:
+    helm.sh/chart: grafana-6.6.1
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/instance: graf
+    app.kubernetes.io/version: "7.3.5"
+    app.kubernetes.io/managed-by: Helm
+  finalizers:
+    - kubernetes.io/pvc-protection
+spec:
+  accessModes:
+    - "ReadWriteOnce"
+  resources:
+    requests:
+      storage: "1Gi"
+  storageClassName: nfs-provisioner
+---
+# Source: grafana/templates/clusterrole.yaml
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  labels:
+    helm.sh/chart: grafana-6.6.1
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/instance: graf
+    app.kubernetes.io/version: "7.3.5"
+    app.kubernetes.io/managed-by: Helm
+  name: graf-grafana-clusterrole
+rules:
+- apiGroups: [""] # "" indicates the core API group
+  resources: ["configmaps", "secrets"]
+  verbs: ["get", "watch", "list"]
+---
+# Source: grafana/templates/clusterrolebinding.yaml
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: graf-grafana-clusterrolebinding
+  labels:
+    helm.sh/chart: grafana-6.6.1
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/instance: graf
+    app.kubernetes.io/version: "7.3.5"
+    app.kubernetes.io/managed-by: Helm
+subjects:
+  - kind: ServiceAccount
+    name: graf-grafana
+    namespace: monitoring
+roleRef:
+  kind: ClusterRole
+  name: graf-grafana-clusterrole
+  apiGroup: rbac.authorization.k8s.io
+---
+# Source: grafana/templates/role.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: graf-grafana
+  namespace: monitoring
+  labels:
+    helm.sh/chart: grafana-6.6.1
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/instance: graf
+    app.kubernetes.io/version: "7.3.5"
+    app.kubernetes.io/managed-by: Helm
+rules:
+- apiGroups:      ['extensions']
+  resources:      ['podsecuritypolicies']
+  verbs:          ['use']
+  resourceNames:  [graf-grafana]
+---
+# Source: grafana/templates/tests/test-role.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: graf-grafana-test
+  namespace: monitoring
+  labels:
+    helm.sh/chart: grafana-6.6.1
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/instance: graf
+    app.kubernetes.io/version: "7.3.5"
+    app.kubernetes.io/managed-by: Helm
+rules:
+- apiGroups:      ['policy']
+  resources:      ['podsecuritypolicies']
+  verbs:          ['use']
+  resourceNames:  [graf-grafana-test]
+---
+# Source: grafana/templates/rolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: graf-grafana
+  namespace: monitoring
+  labels:
+    helm.sh/chart: grafana-6.6.1
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/instance: graf
+    app.kubernetes.io/version: "7.3.5"
+    app.kubernetes.io/managed-by: Helm
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: graf-grafana
+subjects:
+- kind: ServiceAccount
+  name: graf-grafana
+  namespace: monitoring
+---
+# Source: grafana/templates/tests/test-rolebinding.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: graf-grafana-test
+  namespace: monitoring
+  labels:
+    helm.sh/chart: grafana-6.6.1
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/instance: graf
+    app.kubernetes.io/version: "7.3.5"
+    app.kubernetes.io/managed-by: Helm
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: graf-grafana-test
+subjects:
+- kind: ServiceAccount
+  name: graf-grafana-test
+  namespace: monitoring
+---
+# Source: grafana/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: graf-grafana
+  namespace: monitoring
+  labels:
+    helm.sh/chart: grafana-6.6.1
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/instance: graf
+    app.kubernetes.io/version: "7.3.5"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - name: service
+      port: 80
+      protocol: TCP
+      targetPort: 3000
+
+  selector:
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/instance: graf
+---
+# Source: grafana/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: graf-grafana
+  namespace: monitoring
+  labels:
+    helm.sh/chart: grafana-6.6.1
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/instance: graf
+    app.kubernetes.io/version: "7.3.5"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: grafana
+      app.kubernetes.io/instance: graf
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: grafana
+        app.kubernetes.io/instance: graf
+      annotations:
+        checksum/config: ed09b9b6eeb1a88e5076abfc2eb3191b7b92fd0d89a9dbb76821658b8c6dca92
+        checksum/dashboards-json-config: 9c21b369fe85570c28041f62909e21104a4f51d80442337acd293dace2beae6d
+        checksum/sc-dashboard-provider-config: 01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b
+        checksum/secret: f96001ad379c8dbaf5966a30c46d0a8fa1bad81dc14a1c67cd7985124c746060
+    spec:
+      
+      serviceAccountName: graf-grafana
+      securityContext:
+        fsGroup: 472
+        runAsGroup: 472
+        runAsUser: 472
+      initContainers:
+        - name: init-chown-data
+          image: "busybox:1.31.1"
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            runAsNonRoot: false
+            runAsUser: 0
+          command: ["chown", "-R", "472:472", "/var/lib/grafana"]
+          resources:
+            {}
+          volumeMounts:
+            - name: storage
+              mountPath: "/var/lib/grafana"
+        - name: download-dashboards
+          image: "curlimages/curl:7.73.0"
+          imagePullPolicy: IfNotPresent
+          command: ["/bin/sh"]
+          args: [ "-c", "mkdir -p /var/lib/grafana/dashboards/default && /bin/sh /etc/grafana/download_dashboards.sh" ]
+          resources:
+            {}
+          env:
+          volumeMounts:
+            - name: config
+              mountPath: "/etc/grafana/download_dashboards.sh"
+              subPath: download_dashboards.sh
+            - name: storage
+              mountPath: "/var/lib/grafana"
+        - name: grafana-sc-datasources
+          image: "kiwigrid/k8s-sidecar:1.1.0"
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: METHOD
+              value: LIST
+            - name: LABEL
+              value: "grafana_datasource"
+            - name: FOLDER
+              value: "/etc/grafana/provisioning/datasources"
+            - name: RESOURCE
+              value: "both"
+          resources:
+            {}
+          volumeMounts:
+            - name: sc-datasources-volume
+              mountPath: "/etc/grafana/provisioning/datasources"
+      containers:
+        - name: grafana
+          image: "grafana/grafana:7.3.5"
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: config
+              mountPath: "/etc/grafana/grafana.ini"
+              subPath: grafana.ini
+            - name: storage
+              mountPath: "/var/lib/grafana"
+            - name: dashboards-default
+              mountPath: "/var/lib/grafana/dashboards/default/node-dashboard.json"
+              subPath: "node-dashboard.json"
+            - name: config
+              mountPath: "/etc/grafana/provisioning/notifiers/notifiers.yaml"
+              subPath: notifiers.yaml
+            - name: config
+              mountPath: "/etc/grafana/provisioning/dashboards/dashboardproviders.yaml"
+              subPath: dashboardproviders.yaml
+            - name: sc-datasources-volume
+              mountPath: "/etc/grafana/provisioning/datasources"
+          ports:
+            - name: service
+              containerPort: 80
+              protocol: TCP
+            - name: grafana
+              containerPort: 3000
+              protocol: TCP
+          env:
+            - name: GF_SECURITY_ADMIN_USER
+              valueFrom:
+                secretKeyRef:
+                  name: graf-grafana
+                  key: admin-user
+            - name: GF_SECURITY_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: graf-grafana
+                  key: admin-password
+            
+          livenessProbe:
+            failureThreshold: 10
+            httpGet:
+              path: /api/health
+              port: 3000
+            initialDelaySeconds: 60
+            timeoutSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: 3000
+          resources:
+            {}
+      volumes:
+        - name: config
+          configMap:
+            name: graf-grafana
+        - name: dashboards-default
+          configMap:
+            name: graf-grafana-dashboards-default
+        - name: storage
+          persistentVolumeClaim:
+            claimName: graf-grafana
+        - name: sc-datasources-volume
+          emptyDir: {}
+---
+# Source: grafana/templates/ingress.yaml
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: graf-grafana
+  namespace: monitoring
+  labels:
+    helm.sh/chart: grafana-6.6.1
+    app.kubernetes.io/name: grafana
+    app.kubernetes.io/instance: graf
+    app.kubernetes.io/version: "7.3.5"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  rules:
+    - http:
+        paths:
+          - backend:
+              service:
+                name: graf-grafana
+                port:
+                  number: 80
+            pathType: Prefix
+            path: /mz-grafana
+
+NOTES:
+1. Get your 'admin' user password by running:
+
+   kubectl get secret --namespace monitoring graf-grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+
+2. The Grafana server can be accessed via port 80 on the following DNS name from within your cluster:
+
+   graf-grafana.monitoring.svc.cluster.local
+
+   If you bind grafana to 80, please update values in values.yaml and reinstall:
+   ```
+   securityContext:
+     runAsUser: 0
+     runAsGroup: 0
+     fsGroup: 0
+
+   command:
+   - "setcap"
+   - "'cap_net_bind_service=+ep'"
+   - "/usr/sbin/grafana-server &&"
+   - "sh"
+   - "/run.sh"
+   ```
+   Details refer to https://grafana.com/docs/installation/configuration/#http-port.
+   Or grafana would always crash.
+
+   From outside the cluster, the server URL(s) are:
+
+
+3. Login with the password from step 1 and the username: admin
